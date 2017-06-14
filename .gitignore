@@ -18,6 +18,7 @@ proguard/
 #ide project files
 .gradle/
 *.iml
+.idea/
 
 # Package Files #
 *.jar
