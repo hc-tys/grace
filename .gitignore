@@ -19,6 +19,7 @@ proguard/
 .gradle/
 *.iml
 .idea/
+local.properties
 
 # Package Files #
 *.jar
