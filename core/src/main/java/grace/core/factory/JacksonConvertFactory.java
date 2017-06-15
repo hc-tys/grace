@@ -11,31 +11,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.ClassKey;
-import com.squareup.javapoet.JavaFile;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FilterOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.reflect.Type;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
-
-import javax.tools.FileObject;
-import javax.tools.ForwardingJavaFileManager;
-import javax.tools.JavaCompiler;
-import javax.tools.JavaFileManager;
-import javax.tools.JavaFileObject;
-import javax.tools.SimpleJavaFileObject;
-import javax.tools.ToolProvider;
 
 import grace.anno.json.JSONSerializer;
-import grace.core.http.Converter;
-import grace.core.json.Generator;
+import grace.core.mapper.Converter;
 import grace.core.util.GLogger;
 import grace.core.util.TypeUtil;
 
@@ -96,9 +78,6 @@ public class JacksonConvertFactory implements Converter.Factory {
         if(type == String.class) return mapperToString(from);
 
         JavaType javaType = toJavaType(type);
-
-//        GLogger.info("map type %s to java type %s, raw class : %s",type,javaType,javaType.getRawClass());
-
         return javaType == null ? TypeUtil.getDefaultValue(type) : mapperValue(from,javaType);
     }
 
@@ -142,125 +121,15 @@ public class JacksonConvertFactory implements Converter.Factory {
             if(target != null) return config.getTypeFactory().constructType(target);
 
             if(!beanClass.isInterface() || !beanClass.isAnnotationPresent(JSONSerializer.class)) return null;
-            JavaFile javaFile = Generator.createJavaFile(beanClass);
-            if(javaFile == null) return null;
-
-            StringBuilder classFullNameBuilder = new StringBuilder();
-            classFullNameBuilder.append(javaFile.packageName).append(".").append(javaFile.typeSpec.name);
-            target = new JsonClassLoader(javaFile.toJavaFileObject(),classFullNameBuilder.toString()).loadJsonClass();
+            target = createConcrete(beanClass);
             if(target == null) return null;
             _implementsMappings.put(new ClassKey(beanClass),target);
             return config.getTypeFactory().constructType(target);
         }
-    }
 
-    private static class JsonClassLoader extends URLClassLoader{
-
-        JavaFileObject javaFileObject;
-        String fullName;
-
-        public JsonClassLoader(JavaFileObject javaFileObject,String fullName) {
-            super(new URL[0], JsonClassLoader.class.getClassLoader());
-            this.javaFileObject = javaFileObject;
-            this.fullName = fullName;
-        }
-
-        public Class<?> loadJsonClass(){
-            try {
-                return loadClass(fullName);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+        // TODO: 2017/6/15  create concrete class for interface
+        private Class createConcrete(Class<?> beanClass){
             return null;
         }
-
-        @Override
-        protected Class<?> findClass(String name) throws ClassNotFoundException {
-            GLogger.info("find class : %s,full : %s",name,fullName);
-            try {
-                Map<String, byte[]> classBytes = compile(javaFileObject);
-                if(classBytes == null || classBytes.size() == 0) return null;
-                byte[] buf = classBytes.remove(name);
-                if(buf == null) return null;
-                return defineClass(name, buf, 0, buf.length);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        public Map<String, byte[]> compile(JavaFileObject javaFileObject) throws IOException {
-            JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-            try (MemoryJavaFileManager manager = new MemoryJavaFileManager(compiler.getStandardFileManager(null, null, null))) {
-                JavaCompiler.CompilationTask task = compiler.getTask(null, manager, null, null, null, Arrays.asList(javaFileObject));
-                Boolean result = task.call();
-                if (result == null || !result.booleanValue()) {
-                    GLogger.info("Compilation failed for java:%s",fullName);
-                    return null;
-                }
-                return manager.getClassBytes();
-            }
-        }
     }
-
-    static class MemoryJavaFileManager extends ForwardingJavaFileManager<JavaFileManager> {
-
-        // compiled classes in bytes:
-        final Map<String, byte[]> classBytes = new HashMap<String, byte[]>();
-
-        MemoryJavaFileManager(JavaFileManager fileManager) {
-            super(fileManager);
-        }
-
-        public Map<String, byte[]> getClassBytes() {
-            return new HashMap<String, byte[]>(this.classBytes);
-        }
-
-        @Override
-        public void flush() throws IOException {
-        }
-
-        @Override
-        public void close() throws IOException {
-            classBytes.clear();
-        }
-
-        @Override
-        public JavaFileObject getJavaFileForOutput(JavaFileManager.Location location, String className, JavaFileObject.Kind kind,
-                                                   FileObject sibling) throws IOException {
-            if (kind == JavaFileObject.Kind.CLASS) {
-                return new MemoryOutputJavaFileObject(className);
-            } else {
-                return super.getJavaFileForOutput(location, className, kind, sibling);
-            }
-        }
-
-        class MemoryOutputJavaFileObject extends SimpleJavaFileObject {
-            final String name;
-
-            MemoryOutputJavaFileObject(String name) {
-                super(URI.create("string:///" + name), Kind.CLASS);
-                this.name = name;
-            }
-
-            @Override
-            public OutputStream openOutputStream() {
-                return new FilterOutputStream(new ByteArrayOutputStream()) {
-                    @Override
-                    public void close() throws IOException {
-                        out.close();
-                        ByteArrayOutputStream bos = (ByteArrayOutputStream) out;
-                        classBytes.put(name, bos.toByteArray());
-                    }
-                };
-            }
-        }
-    }
-
 }

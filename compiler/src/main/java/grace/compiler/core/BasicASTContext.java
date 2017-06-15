@@ -3,7 +3,7 @@ package grace.compiler.core;
 import grace.compiler.ASTNode;
 import grace.compiler.ASTContext;
 import grace.compiler.ASTPrinter;
-import grace.core.json.AnnotationValues;
+import grace.compiler.element.AnnotationValues;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;

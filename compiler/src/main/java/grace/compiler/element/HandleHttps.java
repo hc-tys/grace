@@ -3,7 +3,6 @@ package grace.compiler.element;
 import grace.anno.http.Https;
 import grace.compiler.ASTNode;
 import grace.compiler.AnnotationHandler;
-import grace.core.json.AnnotationValues;
 
 import static grace.compiler.element.HandleHttp.handleHttp;
 

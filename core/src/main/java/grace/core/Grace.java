@@ -4,13 +4,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import grace.core.factory.GraceFactory;
-import grace.core.http.Converter;
+import grace.core.mapper.Converter;
 import grace.core.http.Executor;
 import grace.core.http.Request;
-import grace.core.http.mapper.GraceHttpCallMapper;
-import grace.core.http.mapper.GraceMapper;
-import grace.core.http.mapper.GraceRuleMapper;
-import grace.core.http.mapper.MapperConfig;
+import grace.core.mapper.GraceHttpCallMapper;
+import grace.core.mapper.GraceMapper;
+import grace.core.mapper.GraceRuleMapper;
+import grace.core.mapper.MapperConfig;
 
 /**
  * Created by hechao on 2017/4/4.
@@ -57,7 +57,7 @@ public class Grace {
     }
 
     public static GraceRuleMapper filter(String value){
-        return new GraceRuleMapperImpl(value,DEFAULT_CONVERTER_FACTORY);
+        return new GraceFilterMapperImpl(value,DEFAULT_CONVERTER_FACTORY);
     }
 
     public static void setDefaultExecutor(Executor executor){

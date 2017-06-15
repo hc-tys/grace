@@ -10,6 +10,7 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,10 +42,7 @@ import grace.compiler.AnnotationHandler;
 import grace.core.http.Call;
 import grace.core.http.HttpService;
 import grace.core.http.Request;
-import grace.core.http.mapper.MapperConfig;
-import grace.core.json.AnnotationValues;
-import grace.core.json.ProcessException;
-import grace.core.util.TypeUtil;
+import grace.core.mapper.MapperConfig;
 
 /**
  * Created by hechao on 2017/4/5.
@@ -248,13 +246,14 @@ public class HandleHttp implements AnnotationHandler<Http> {
             ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
 
             if(useReflex(parameterizedTypeName)){
-
-                codeBuilder.add("return ($T)callFactory.create(request,$L,",returnTypeName,config);
-                codeBuilder.add("$T.getHttpCallType($T.class,$S",ClassName.get(TypeUtil.class),ClassName.get(classNode.getAST().asElement(classNode).asType()),executableElement.getSimpleName());
+                codeBuilder.addStatement("final $T type",ClassName.get(ParameterizedType.class));
+                codeBuilder.add("try{\n type = (ParameterizedType)this.getClass().getMethod($S",executableElement.getSimpleName());
                 for (VariableElement variableElement : executableElement.getParameters()){
                     codeBuilder.add(",$T.class",TypeName.get(variableElement.asType()));
                 }
-                codeBuilder.addStatement("))");
+                codeBuilder.addStatement(").getGenericReturnType()");
+                codeBuilder.addStatement("}catch($T e){throw new $T(e.getMessage());}",ClassName.get(Exception.class),ClassName.get(RuntimeException.class));
+                codeBuilder.addStatement("return ($T)callFactory.create(request,$L,type.getActualTypeArguments()[0])",returnTypeName,config);
             }else{
                 int typeArgumentSize = parameterizedTypeName.typeArguments.size();
                 StringBuilder stringBuilder = new StringBuilder();

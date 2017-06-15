@@ -1,1 +1,1 @@
-include ':anno', ':core', ':compiler'
+include ':anno', ':core', ':compiler',':sample'

@@ -10,8 +10,8 @@ import grace.core.http.Call;
 import grace.core.http.Callback;
 import grace.core.http.Request;
 import grace.core.http.Response;
-import grace.core.http.mapper.GraceHttpMapper;
-import grace.core.http.mapper.MapperConfig;
+import grace.core.mapper.GraceHttpMapper;
+import grace.core.mapper.MapperConfig;
 import grace.core.util.GLogger;
 
 /**

@@ -26,8 +26,8 @@ import grace.core.http.Filter;
 import grace.core.http.HttpService;
 import grace.core.http.Interceptor;
 import grace.core.http.Request;
-import grace.core.http.mapper.GraceHttpServiceMapper;
-import grace.core.http.mapper.MapperConfig;
+import grace.core.mapper.GraceHttpServiceMapper;
+import grace.core.mapper.MapperConfig;
 import grace.core.util.GLogger;
 
 /**
@@ -38,9 +38,9 @@ class GraceHttpServiceMapperImpl implements GraceHttpServiceMapper {
 
     @Override
     public <T> T toService(Class<T> httpService) {
-        if (!httpService.isInterface()) {
-            throw new IllegalArgumentException("API declarations must be interfaces.");
-        }
+
+        if(!httpService.isInterface())
+            throw new RuntimeException(String.format("class %s should be an interface",httpService.getSimpleName()));
 
         HttpService target = GraceFactory.GenCode.loadService(httpService);
         if(target == null) return (T) createService(httpService);
@@ -50,7 +50,8 @@ class GraceHttpServiceMapperImpl implements GraceHttpServiceMapper {
     }
 
     private Object createService(Class httpService){
-        if(!httpService.isAnnotationPresent(Https.class) && !httpService.isAnnotationPresent(Http.class)) throw new RuntimeException("Not support for :"+httpService);
+        if(!httpService.isAnnotationPresent(Https.class) && !httpService.isAnnotationPresent(Http.class))
+            throw new RuntimeException(String.format("class %s should be annotated with @Https or @Http",httpService.getSimpleName()));
         return Proxy.newProxyInstance(httpService.getClassLoader(),new Class[]{httpService},new ServiceHandler(httpService));
     }
 

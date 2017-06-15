@@ -1,4 +1,4 @@
-package grace.core.http.mapper;
+package grace.core.mapper;
 
 import grace.core.http.Executor;
 import grace.core.http.Filter;

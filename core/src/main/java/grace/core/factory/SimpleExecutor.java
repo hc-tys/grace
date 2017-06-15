@@ -41,7 +41,7 @@ import static grace.core.util.ExecutorUtil.CHARSET_UTF_8;
  * Created by hechao on 2017/4/11.
  */
 
-final class StringSynExecutor implements Executor.SynExecutor<String> {
+final class SimpleExecutor implements Executor.SynExecutor<String> {
     private static final int CONNECT_TIMEOUT = 30 * 1000;
 
     private static final int READ_TIMEOUT = 30 * 1000;
@@ -50,12 +50,12 @@ final class StringSynExecutor implements Executor.SynExecutor<String> {
 
     private List<String> hostNames;
 
-    StringSynExecutor(SSLContext sslContext, List<String> hostNames) {
+    SimpleExecutor(SSLContext sslContext, List<String> hostNames) {
         this.sslContext = sslContext;
         this.hostNames = hostNames;
     }
 
-    StringSynExecutor() {
+    SimpleExecutor() {
 
     }
 

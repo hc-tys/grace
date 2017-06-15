@@ -1,4 +1,4 @@
-package grace.core.http.mapper;
+package grace.core.mapper;
 
 import grace.core.http.FilterException;
 
@@ -9,7 +9,7 @@ import grace.core.http.FilterException;
  * 若为array，则规则应用于每个value,对每个value的key-value进行处理，对于每个value仍为array的，根据规则做不同处理。
  *
  */
-public interface MapperRule<T extends MapperRule> {
+public interface MapperFilter<T extends MapperFilter> {
 
     /**
      * 判断assertMode对应值是否和value想等。如想等则继续按流程处理规则，否则抛出异常{@link FilterException}

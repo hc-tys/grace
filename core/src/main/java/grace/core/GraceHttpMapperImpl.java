@@ -10,15 +10,15 @@ import java.util.concurrent.FutureTask;
 
 import grace.core.factory.GraceFactory;
 import grace.core.http.Callback;
-import grace.core.http.Converter;
 import grace.core.http.Executor;
 import grace.core.http.Filter;
 import grace.core.http.FilterException;
 import grace.core.http.Interceptor;
 import grace.core.http.Request;
 import grace.core.http.Response;
-import grace.core.http.mapper.GraceHttpMapper;
-import grace.core.http.mapper.MapperConfig;
+import grace.core.mapper.Converter;
+import grace.core.mapper.GraceHttpMapper;
+import grace.core.mapper.MapperConfig;
 
 /**
  * Created by hechao on 2017/4/23.

@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.Set;
 
 import grace.core.http.Call;
-import grace.core.http.Converter;
 import grace.core.http.Request;
-import grace.core.http.mapper.GraceHttpCallMapper;
-import grace.core.http.mapper.MapperConfig;
+import grace.core.mapper.Converter;
+import grace.core.mapper.GraceHttpCallMapper;
+import grace.core.mapper.MapperConfig;
 
 /**
  * Created by hechao on 2017/4/23.

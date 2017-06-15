@@ -1,4 +1,4 @@
-package grace.core.http.mapper;
+package grace.core.mapper;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -6,9 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 import grace.core.http.Call;
-import grace.core.http.Executor;
-import grace.core.http.Filter;
-import grace.core.http.Interceptor;
 
 /**
  * Created by hechao on 2017/4/11.
@@ -16,16 +13,13 @@ import grace.core.http.Interceptor;
 
 public interface Mapper{
 
-    interface RawMapper{
+    <T> T to(Class<T> raw,Type... typeParams);
 
-        <T> T to(Class<T> raw,Type... typeParams);
+    <T> T to(Type type);
 
-        <T> T to(Type type);
+    <T> T to(Class<T> type);
 
-        <T> T to(Class<T> type);
-}
-
-    interface CollectionMapper{
+    interface CollectionMapper {
 
         <T> List<T> toList(Class<T> type);
 
@@ -34,15 +28,13 @@ public interface Mapper{
         <K,V> Map<K,V> toMap(Class<K> keyType, Class<V> valueType);
     }
 
-    interface RawCallMapper{
-
+    interface CallMapper {
         <T> Call<T> toCall(Type type);
 
         <T> Call<T> toCall(Class<T> raw,Type... typeParams);
-
     }
 
-    interface CollectionCallMapper{
+    interface CallCollectionMapper {
 
         <T> Call<List<T>> toListCall(Class<T> type);
 
@@ -51,7 +43,7 @@ public interface Mapper{
         <K,V> Call<Map<K,V>> toMapCall(Class<K> keyType, Class<V> valueType);
     }
 
-    interface HttpMapper{
+    interface ServiceMapper {
         <T> T toService(Class<T> httpService);
     }
 

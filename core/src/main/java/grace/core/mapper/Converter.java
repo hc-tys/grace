@@ -1,4 +1,4 @@
-package grace.core.http;
+package grace.core.mapper;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

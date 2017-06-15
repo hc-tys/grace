@@ -10,7 +10,7 @@ import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 
-import grace.core.json.AnnotationValues;
+import grace.compiler.element.AnnotationValues;
 
 /**
  * Created by hechao on 2017/3/31.

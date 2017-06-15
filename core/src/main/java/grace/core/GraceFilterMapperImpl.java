@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
-import com.fasterxml.jackson.databind.node.NumericNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.IOException;
@@ -16,22 +15,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import grace.core.http.Converter;
+import grace.core.mapper.Converter;
 import grace.core.http.FilterException;
-import grace.core.http.mapper.GraceRuleMapper;
+import grace.core.mapper.GraceRuleMapper;
 import grace.core.util.GLogger;
 
 /**
  * Created by hechao on 2017/5/3.
  */
 
-class GraceRuleMapperImpl extends GraceMapperImpl implements GraceRuleMapper {
+class GraceFilterMapperImpl extends GraceMapperImpl implements GraceRuleMapper {
 
     private List<Rule.IRule> rules;
 
     private JsonNode sourceNode;
 
-    public GraceRuleMapperImpl(String source,Converter.Factory converterFactory) {
+    public GraceFilterMapperImpl(String source, Converter.Factory converterFactory) {
         super(source,converterFactory);
         this.rules = new ArrayList<>();
         try {

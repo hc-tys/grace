@@ -1,4 +1,4 @@
-package grace.core.json;
+package grace.compiler.element;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.squareup.javapoet.AnnotationSpec;

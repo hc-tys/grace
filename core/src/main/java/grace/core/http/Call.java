@@ -2,7 +2,7 @@ package grace.core.http;
 
 import java.lang.reflect.Type;
 
-import grace.core.http.mapper.MapperConfig;
+import grace.core.mapper.MapperConfig;
 
 public interface Call<T> extends Cloneable {
     /**

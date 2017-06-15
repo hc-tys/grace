@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 
 import javax.lang.model.element.Element;
 
-import grace.core.json.AnnotationValues;
+import grace.compiler.element.AnnotationValues;
 
 /**
  * Created by hechao on 2017/3/3.

@@ -1,15 +1,10 @@
 package grace.core.test;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-
 import org.junit.Assert;
 import org.junit.Test;
 
 import grace.core.Grace;
 import grace.core.http.FilterException;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by hechao on 2017/5/2.

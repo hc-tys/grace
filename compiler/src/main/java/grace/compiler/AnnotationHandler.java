@@ -2,7 +2,7 @@ package grace.compiler;
 
 import java.lang.annotation.Annotation;
 
-import grace.core.json.AnnotationValues;
+import grace.compiler.element.AnnotationValues;
 
 /**
  * Created by hechao on 2017/3/3.

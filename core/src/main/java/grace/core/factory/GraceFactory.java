@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 
 import javax.net.ssl.SSLContext;
 
-import grace.core.http.Converter;
+import grace.core.mapper.Converter;
 import grace.core.http.Executor;
 import grace.core.http.HttpService;
 import grace.core.util.GLogger;
@@ -19,11 +19,11 @@ import grace.core.util.GLogger;
 public final class GraceFactory {
 
     public static Executor.SynExecutor<String> createStringSynExecutor(){
-        return new StringSynExecutor();
+        return new SimpleExecutor();
     }
 
     public static Executor.SynExecutor<String> createStringSynExecutor(SSLContext sslContext, List<String> hostNames){
-        return new StringSynExecutor(sslContext,hostNames);
+        return new SimpleExecutor(sslContext,hostNames);
     }
 
     public static Converter.Factory createConvertFactory(){
@@ -32,7 +32,6 @@ public final class GraceFactory {
 
     public interface Schedulers{
         ExecutorService IO = java.util.concurrent.Executors.newCachedThreadPool();
-//        ExecutorService COMPUTATION = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
 
     public static final class GenCode{
