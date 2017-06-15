@@ -1,0 +1,13 @@
+dependencies{
+    compile project(':core')
+    compile "com.google.guava:guava:19.0"
+    compile "com.squareup:javapoet:1.8.0"
+    compile "com.fasterxml.jackson.core:jackson-annotations:2.8.0"
+    compileOnly "com.google.auto.service:auto-service:1.0-rc3"
+}
+
+
+
+
+
+

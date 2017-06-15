@@ -1,0 +1,40 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+apply from: "config.gradle"
+
+allprojects {
+    ext{
+        config = rootProject.ext
+    }
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
+
+def javaProjects = ['anno','core','compiler'].collect(){project(it)}
+
+subprojects{
+
+    if( project in javaProjects ){
+        apply plugin: 'java'
+
+        ext{
+            srcDirs = sourceSets.main.allSource.srcDirs
+        }
+
+        sourceCompatibility = config.sourceCompatibility
+        targetCompatibility = config.targetCompatibility
+    }
+}
