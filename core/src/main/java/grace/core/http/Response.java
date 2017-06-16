@@ -11,14 +11,14 @@ public interface Response<T> {
     /**
      * The deserialized response body
      *
-     * @return
+     * @return the deserialized response body
      */
     T body();
 
     /**
      * http headers
      *
-     * @return
+     * @return http response headers
      */
     Map<String, String> headers();
 
@@ -26,7 +26,7 @@ public interface Response<T> {
      * error message;
      * if the status is {@link Status#USER} , the value is {@link FilterException#getMessage()};
      *
-     * @return
+     * @return error message
      */
     String message();
 
@@ -36,11 +36,14 @@ public interface Response<T> {
      * or {@link Status#CONNECTION_FAILED} or {@link Status#UNEXPECTED},the value is -1;
      * if the status is {@link Status#USER} , the value is {@link FilterException#getCode()};
      * if the status is{@link Status#OK},the value is http response code;
+     *
+     * @return  code
      */
     int code();
 
     /**
      * response status
+     * @return response status
      */
     Status status();
 

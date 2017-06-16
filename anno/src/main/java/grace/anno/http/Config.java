@@ -16,20 +16,20 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface Config {
     /**
-     *
-     * @return
+     * set http executor
+     * @return http executor
      */
     Class<?> executor() default Default.class;
 
     /**
-     *
-     * @return
+     * set http body filter
+     * @return http filter
      */
     Class<?> filter() default Default.class;
 
     /**
-     *
-     * @return
+     * set http request interceptor
+     * @return http interceptor
      */
     Class<?> interceptor() default Default.class;
 }

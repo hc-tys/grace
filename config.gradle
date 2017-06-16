@@ -1,4 +1,23 @@
 ext{
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    common_config=[
+            sourceCompatibility : JavaVersion.VERSION_1_7,
+            targetCompatibility : JavaVersion.VERSION_1_7
+    ]
+    anno_config=[
+            version : '1.0.0',
+            artifactId : 'grace-anno',
+            description : 'core annotations for grace compiler processor'
+    ]
+
+    compiler_config=[
+            version : '1.0.0',
+            artifactId : 'grace-compiler',
+            description : 'generate source code for interface annotated with grace annotations'
+    ]
+
+    core_config=[
+            version : '1.0.0',
+            artifactId : 'grace-core',
+            description : 'A convenient flat api for json serialization from http'
+    ]
 }

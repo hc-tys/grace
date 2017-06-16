@@ -18,7 +18,6 @@ public interface AST<T> {
 
     ASTContext getContext();
 
-    /** The AST top node */
     ASTNode<T> getTop();
 
     void traverse(ASTVisitor visitor);

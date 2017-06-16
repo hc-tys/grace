@@ -13,46 +13,41 @@ public interface MapperFilter<T extends MapperFilter> {
 
     /**
      * 判断assertMode对应值是否和value想等。如想等则继续按流程处理规则，否则抛出异常{@link FilterException}
-     * @throws FilterException
-     * @param assertMode
-     * @param value
-     * @return
+     * @param assertMode 匹配的key字段
+     * @param value 期望值
+     * @return 返回实例
      */
     T assertEqual(String assertMode, String value);
 
     /**
      *
-     * @throws FilterException
-     * @param assertMode
-     * @param value
-     * @return
+     * @param assertMode 匹配的key字段
+     * @param value 期望值
+     * @return 返回实例
      * @see #assertEqual(String, String)
      */
     T assertEqual(String assertMode, int value);
 
     /**
-     * @throws FilterException
-     * @param assertMode
-     * @param value
-     * @return
+     * @param assertMode 匹配的key字段
+     * @param value 期望值
+     * @return 返回实例
      * @see #assertEqual(String, String)
      */
     T assertEqual(String assertMode, long value);
 
     /**
-     * @throws FilterException
-     * @param assertMode
-     * @param value
-     * @return
+     * @param assertMode 匹配的key字段
+     * @param value 期望值
+     * @return 返回实例
      * @see #assertEqual(String, String)
      */
     T assertEqual(String assertMode, boolean value);
 
     /**
-     * @throws FilterException
-     * @param assertMode
-     * @param value
-     * @return
+     * @param assertMode 匹配的key字段
+     * @param value 期望值
+     * @return 返回实例
      * @see #assertEqual(String, String)
      */
     T assertEqual(String assertMode, float value);
@@ -60,54 +55,50 @@ public interface MapperFilter<T extends MapperFilter> {
     /**
      * 判断assertMode对应值是否和value想等。如想等则继续按流顺序处理规则，否则抛出异常{@link FilterException}
      * 若errorMode不为空，则使用其对应的value值作为异常信息，否则使用系统自定义信息
-     * @throws FilterException
-     * @param assertMode
-     * @param value
-     * @return
+     * @param assertMode 匹配的key字段
+     * @param errorMode  断言失败时代表错误消息的字段
+     * @param value 期望值
+     * @return 返回实例
      * @see #assertEqual(String, String)
      */
     T assertEqual(String assertMode, String errorMode, String value);
 
     /**
      *
-     * @throws FilterException
-     * @param assertMode
-     * @param errorMode
-     * @param value
-     * @return
+     * @param assertMode 匹配的key字段
+     * @param errorMode  断言失败时代表错误消息的字段
+     * @param value 期望值
+     * @return 返回实例
      * @see #assertEqual(String, String, String)
      */
     T assertEqual(String assertMode, String errorMode, int value);
 
     /**
      *
-     * @throws FilterException
-     * @param assertMode
-     * @param errorMode
-     * @param value
-     * @return
+     * @param assertMode 匹配的key字段
+     * @param errorMode  断言失败时代表错误消息的字段
+     * @param value 期望值
+     * @return 返回实例
      * @see #assertEqual(String, String, String)
      */
     T assertEqual(String assertMode, String errorMode, long value);
 
     /**
      *
-     * @throws FilterException
-     * @param assertMode
-     * @param errorMode
-     * @param value
-     * @return
+     * @param assertMode 匹配的key字段
+     * @param errorMode  断言失败时代表错误消息的字段
+     * @param value 期望值
+     * @return 返回实例
      * @see #assertEqual(String, String, String)
      */
     T assertEqual(String assertMode, String errorMode, float value);
 
     /**
      *
-     * @throws FilterException
-     * @param assertMode
-     * @param errorMode
-     * @param value
-     * @return
+     * @param assertMode 匹配的key字段
+     * @param errorMode  断言失败时代表错误消息的字段
+     * @param value 期望值
+     * @return 返回实例
      * @see #assertEqual(String, String, String)
      */
     T assertEqual(String assertMode, String errorMode, boolean value);
@@ -115,37 +106,34 @@ public interface MapperFilter<T extends MapperFilter> {
     /**
      * 若为object，则遍历其key-value，将key值为originMode的key-value替换为key值为targetMode的key-value，value值保持不变。
      * 若为array，则应用规则到每个value，若value为非object,则抛出异常{@link FilterException}
-     * @throws FilterException
      * @param originMode 非空，否则抛出异常{@link FilterException}
      * @param targetMode 非空，否则抛出异常{@link FilterException}
-     * @return
+     * @return 返回实例
      */
     T alias(String originMode, String targetMode);
 
     /**
      * 若为object，则遍历其key-value，将不包含在originModes中key对应的key-value过滤掉
      * 若为array，则应用规则到每个value，若value为非object,则抛出异常{@link FilterException}
-     * @param originModes
-     * @return
+     * @param originModes 包含的字段列表
+     * @return 返回实例
      */
     T include(String... originModes);
 
     /**
      * 若为object，则遍历其key-value，将包含在originModes中key对应的key-value过滤掉
      * 若为array，则应用规则到每个value，若value为非object,则抛出异常{@link FilterException}
-     * @throws FilterException
-     * @param originModes
-     * @return
+     * @param originModes 排除列表
+     * @return 返回实例
      */
     T exclude(String... originModes);
 
     /**
      * 若为object，则过滤掉匹配regexMode的key对应的key-value，将其中的value组成array，做为新value和新key targetMode一起组成新的key-value添加到原有json中
      * 若为array，则应用规则到每个value，若value为非object，则抛出异常{@link FilterException}
-     * @throws FilterException
      * @param regexMode 正则表达式 , 非空，否则抛出异常{@link FilterException}
      * @param targetMode  非空，否则抛出异常{@link FilterException}
-     * @return
+     * @return 返回实例
      */
     T array(String regexMode, String targetMode);
 
@@ -155,17 +143,15 @@ public interface MapperFilter<T extends MapperFilter> {
      *
      * 与{@link #include(String...)}不同之处在于仅保留key-value对应的value值，不包含key值。
      *
-     * @throws FilterException
-     * @param originMode
-     * @return
+     * @param originMode 获取的字段值
+     * @return 返回实例
      */
     T get(String originMode);
 
     /**
      * 过滤结果为array的index值为originMode对应的value。非array将抛出异常{@link FilterException}
-     * @throws FilterException
-     * @param originMode
-     * @return
+     * @param originMode 索引值
+     * @return 返回实例
      */
     T get(int originMode);
 
@@ -173,10 +159,9 @@ public interface MapperFilter<T extends MapperFilter> {
      * 若为object，则过滤掉key为keyMode和valueMode的key-value，然后将keyMode对应的value作为key，valueMode对应value作为value，添加到json中,
      * 其中keyMode对应的value值必须为数值或者字符串，否则抛出异常{@link FilterException}
      * 若为array，则应用规则到每个value，若value为非object,则抛出异常{@link FilterException}
-     * @throws FilterException
      * @param keyMode  非空，否则抛出异常{@link FilterException}
      * @param valueMode  非空，否则抛出异常{@link FilterException}
-     * @return
+     * @return 返回实例
      */
     T map(String keyMode,String valueMode);
 
@@ -185,23 +170,22 @@ public interface MapperFilter<T extends MapperFilter> {
      * 其中keyMode对应的value值必须为数值或者字符串，否则抛出异常{@link FilterException}
      * 若为array，则应用规则到每个value，生成的key-value添加到同一个object中作为结果。
      * 若value为非object,则抛出异常{@link FilterException}
-     * @throws FilterException
      * @param keyMode  非空，否则抛出异常{@link FilterException}
      * @param valueMode  非空，否则抛出异常{@link FilterException}
-     * @return
+     * @return 返回实例
      */
     T collectMap(String keyMode,String valueMode);
 
     /**
      * 对json应用规则
-     * @return
-     * @throws FilterException
+     * @return 返回实例
+     * @throws FilterException 不符合规则时抛出
      */
     String apply() throws FilterException;
 
     /**
      * 内部调用{@link #apply()},发生异常时返回null
-     * @return
+     * @return 返回实例
      */
     String quietApply();
 }

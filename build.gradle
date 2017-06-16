@@ -11,12 +11,9 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-apply from: "config.gradle"
+apply from: 'config.gradle'
 
 allprojects {
-    ext{
-        config = rootProject.ext
-    }
     repositories {
         jcenter()
         mavenCentral()
@@ -25,16 +22,23 @@ allprojects {
 
 def javaProjects = ['anno','core','compiler'].collect(){project(it)}
 
+def configs = extensions.extraProperties
+
 subprojects{
 
     if( project in javaProjects ){
         apply plugin: 'java'
 
-        ext{
-            srcDirs = sourceSets.main.allSource.srcDirs
-        }
+        sourceCompatibility = common_config.sourceCompatibility
+        targetCompatibility = common_config.targetCompatibility
 
-        sourceCompatibility = config.sourceCompatibility
-        targetCompatibility = config.targetCompatibility
+        def config = configs.get(project.name+"_config")
+        VERSION_NAME = config.version
+        POM_ARTIFACEY_ID = config.artifactId
+        POM_DESCRIPTION = config.description
+        apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+
     }
 }
+
+

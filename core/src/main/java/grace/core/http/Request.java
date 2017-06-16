@@ -23,42 +23,50 @@ public interface Request {
 
     /**
      * http method
+     * @return Method object represented http method
      */
     Method method();
 
     /**
      * http protocol
+     * @return Protocol object represented http protocol
      */
     Protocol protocol();
 
     /**
      * http host
+     * @return  request server host address
      */
 
     String host();
 
     /**
      * host port
+     * @return  host port
      */
     int port();
 
     /**
      * http path
+     * @return http path
      */
     String path();
 
     /**
      * http body
+     * @return http body
      */
     String body();
 
     /**
-     * http headers
+     * http request headers
+     * @return http headers
      */
     Map<String, String> headers();
 
     /**
-     * http parameters
+     * http request parameters
+     * @return http parameters
      */
 
     List<NameValuePair> parameters();
@@ -186,6 +194,7 @@ public interface Request {
          *            null and "" will be ignored
          * @param value
          *            null and "" will be ignored
+         * @return 返回Builder this对象
          */
         public Builder parameter(String key, String value) {
             if (null != key && !key.isEmpty() && null != value && !value.isEmpty()) {

@@ -10,62 +10,63 @@ public interface ASTNode<T> {
 
     /**
      * Adds the stated node as a direct child of this node.
-     * @param node
+     * @param node node object
      */
     void addChild( ASTNode node);
 
     /**
      *  Removes the stated node, which must be a direct child of this node
-     * @param node
+     * @param node node object
      */
     void removeChild(ASTNode node);
 
     /**
      *
      * Returns all children nodes.
+     * @return child nodes
      */
 
     List<ASTNode> getChildren();
 
     /**
      * The ASTNode object that encloses this one.
-     * @return
+     * @return parent node
      */
     ASTNode getParent();
 
     /**
      * set parent
-     * @param node
+     * @param node parent node
      */
     void setParent(ASTNode node);
 
     /**
      * Return the name of this node
-     *
+     * @return node name
      */
     String getName();
 
     /**
      * Return the AST object which this note belongs to
-     * @return
+     * @return ast object
      */
     AST getAST();
 
     /**
      * the type of node
-     * @return
+     * @return node kind
      */
     AST.Kind kind();
 
     /**
      * 节点的值
-     * @return
+     * @return node value
      */
     T getValue();
 
     /**
-     *
-     * @param visitor
+     * traverse this node
+     * @param visitor callback
      */
     void traverse(ASTVisitor visitor);
 

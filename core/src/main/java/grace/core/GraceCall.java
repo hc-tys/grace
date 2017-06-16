@@ -87,7 +87,7 @@ class GraceCall<F,T> implements Call<T> {
     }
 
     @Override
-    public boolean isCanceled() {
+    public boolean isCancelled() {
         return isCancelled.get();
     }
 

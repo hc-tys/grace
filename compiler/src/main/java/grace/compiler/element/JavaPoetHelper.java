@@ -6,7 +6,6 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +22,8 @@ public class JavaPoetHelper {
 
     /**
      * 注意泛型的处理
-     * @param executableElement
-     * @return
+     * @param executableElement the method element
+     * @return MethodSpec.Builder object
      */
     public static MethodSpec.Builder createMethodBuilder(ExecutableElement executableElement){
         String methodName = executableElement.getSimpleName().toString();
@@ -58,10 +57,9 @@ public class JavaPoetHelper {
         }
 
         List<ParameterSpec> parameterSpecs = new ArrayList<>();
-        Parameter[] parameters = method.getParameters();
-        for (int i = 0 ; i<parameters.length ;i++){
-            Parameter parameter = parameters[i];
-            parameterSpecs.add(ParameterSpec.builder(parameter.getParameterizedType(),"arg"+i).build());
+        Class[] parameterTypes = method.getParameterTypes();
+        for (int i = 0 ; i<parameterTypes.length ;i++){
+            parameterSpecs.add(ParameterSpec.builder(parameterTypes[i],"arg"+i).build());
         }
 
         return MethodSpec.methodBuilder(methodName)

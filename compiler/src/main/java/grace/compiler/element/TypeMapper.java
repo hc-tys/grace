@@ -54,7 +54,6 @@ public class TypeMapper {
         return typeName;
     }
 
-    /** Returns a type name equivalent to {@code mirror}. */
     public static TypeName getTypeName(ASTContext context,TypeMirror mirror) {
         for (String type : context.getAttribute(GenCode.class).jsonMap.keySet()){
             if(mirror.toString().contains(type)) {
