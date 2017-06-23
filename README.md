@@ -1,9 +1,10 @@
-#Grace
+# Grace
 
 This project provides a framework for deserialization and serialization source.
 You can use its convenient flat APIs to serialize POJO or deserialize source to POJO. These sources can be from http request.
 
-##Get it
+## Get it
+
 **maven**
 
 ```
@@ -21,7 +22,7 @@ dependencies {
 }
 ```
 
-##How to use
+## How to use
 
 The following six methods are the core of Grace:
 
@@ -40,7 +41,7 @@ Grace also provide a method like [retrofit](https://github.com/square/retrofit) 
 
 * **S from(Class service)**
 
-###Http request
+### Http request
 Grace provides default implementation for http request ,but you can implement by yourself ,just only implement one of the following interfaces and set it use Grace.
 
 The interface:
@@ -66,7 +67,7 @@ Set it to Grace:
 void setDefaultExecutor(Executor executor)
 ```
 
-###Convert
+### Convert
 Grace use [jackson-databind](https://github.com/FasterXML/jackson-databind/edit/master/README.md) as its defaut convertor,you also can custom it by implement the following interface and set it to Grace.
 
 The interface:
@@ -89,7 +90,7 @@ Set it to Grace:
 ```
 void setDefaultConverterFactory(Converter.Factory converterFactory)
 ```
-##Expand
+## Expand
 
 If use default convertor , that is [jackson-databind](https://github.com/FasterXML/jackson-databind/edit/master/README.md) ,you can go to its main page for more infomations about how to implement POJOs.
 
@@ -118,7 +119,7 @@ String data = "[{\"name\":\"xiaoming\",\"age\":20,\"gender\":\"male\"}," +
 List<People> peopleList = Grace.from(sData).toList(People.class);
 ```
 
-###principle
+### Principle
 
 Use annotations provided by grace-anno, grace can generate concrete classes for these interfaces annotated with @JSONSerializer at runtime or compile time. When grace meet these interfaces ,it use the generated concrete classes to replace them for [jackson-databind](https://github.com/FasterXML/jackson-databind/edit/master/README.md)
 
@@ -129,7 +130,7 @@ annotationProcessor com.github.hc-tys:grace-compiler:1.0.0
 
 ```
 
-##http service
+## Http service
 
 This idea is from [retrofit](https://github.com/square/retrofit) , but there are two main differences
 
@@ -152,7 +153,7 @@ public interface PeopleProvider {
 Response<List<People>> response = Grace.from(PeopleProvider.class).requestPeoples(2).execute();
 ```
 
-##individuation
+### Individuation
 
 Except **Executor** interface, Grace provides another two interfaces to customize http request:
 
@@ -219,7 +220,7 @@ public interface PeopleProvider {
 }
 ```
 
-##Proguard
+## Proguard
 
 If you are using ProGuard you might need to add the following options:
 
