@@ -1,7 +1,8 @@
 #Grace
-This project provides a framework for deserialization and serialization source.
 
+This project provides a framework for deserialization and serialization source.
 You can use its convenient flat APIs to serialize POJO or deserialize source to POJO. These sources can be from http request.
+
 ##Get it
 **maven**
 
