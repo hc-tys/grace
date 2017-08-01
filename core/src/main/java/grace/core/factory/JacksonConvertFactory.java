@@ -74,7 +74,6 @@ public class JacksonConvertFactory implements Converter.Factory {
     }
 
     private static Object mapperTo(Object from,Type type) throws IOException {
-
         if(type == String.class) return mapperToString(from);
 
         JavaType javaType = toJavaType(type);
@@ -101,7 +100,7 @@ public class JacksonConvertFactory implements Converter.Factory {
     }
 
     private static String mapperToString(Object value) throws JsonProcessingException {
-        return sObjectMapper.writeValueAsString(value);
+        return value instanceof String ? (String) value : sObjectMapper.writeValueAsString(value);
     }
 
     private static class GraceAbstractTypeResolver extends SimpleAbstractTypeResolver{
