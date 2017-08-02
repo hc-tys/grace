@@ -16,7 +16,7 @@ ext{
     ]
 
     core_config=[
-            version : '1.0.0',
+            version : '1.0.1',
             artifactId : 'grace-core',
             description : 'A convenient flat api for json serialization from http'
     ]
